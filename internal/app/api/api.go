@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+var (
+	prefix = "/api"
+)
+
 type API struct {
 	config  *Config
 	router  *http.ServeMux
@@ -28,14 +32,12 @@ func (api *API) Start() error {
 	if err := api.configureStore(); err != nil {
 		return err
 	}
-
 	return http.ListenAndServe(":"+api.config.Port, api.router)
 }
 
 func (api *API) configureRouter() {
-	api.router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello"))
-	})
+	api.router.HandleFunc(prefix+"/user/register", api.PostUserRegister)
+	api.router.HandleFunc(prefix+"/users", api.GetAllUsers)
 }
 
 //configureStore method
