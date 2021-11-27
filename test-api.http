@@ -1,0 +1,17 @@
+POST http://localhost:8080/api/user/register
+Content-Type: application/json
+
+{
+  "email": "Evffm3",
+  "login": "emvfv23",
+  "password": "evfvm3"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
+
+###
